@@ -3,7 +3,7 @@ package protocol
 import (
 	"encoding/binary"
 	"errors"
-	"github.com/xpwu/go-stream/push/core"
+	"github.com/jingat2010/go-stream/push/core"
 	"github.com/xpwu/go-xnet/xtcp"
 	"io"
 	"time"

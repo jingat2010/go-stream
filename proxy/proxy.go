@@ -1,12 +1,12 @@
 package proxy
 
 import (
-  "context"
-  "github.com/xpwu/go-stream/fakehttp"
+	"context"
+	"github.com/jingat2010/go-stream/fakehttp"
 )
 
 type Proxy interface {
-  Do(ctx context.Context, request *fakehttp.Request) *fakehttp.Response
+	Do(ctx context.Context, request *fakehttp.Request) *fakehttp.Response
 }
 
 // 开发者可自行设定 Proxy Creator

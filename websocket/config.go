@@ -2,9 +2,9 @@ package websocket
 
 import (
 	"fmt"
+	"github.com/jingat2010/go-stream/proxy"
 	"github.com/xpwu/go-config/configs"
 	"github.com/xpwu/go-log/log"
-	"github.com/xpwu/go-stream/proxy"
 	"github.com/xpwu/go-xnet/xtcp"
 	"regexp"
 	"time"

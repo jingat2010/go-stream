@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/xpwu/go-stream/conn"
+	"github.com/jingat2010/go-stream/conn"
 	"net"
 	"strings"
 )

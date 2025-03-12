@@ -2,8 +2,8 @@ package lencontent
 
 import (
 	"context"
+	conn2 "github.com/jingat2010/go-stream/conn"
 	"github.com/xpwu/go-log/log"
-	conn2 "github.com/xpwu/go-stream/conn"
 	"github.com/xpwu/go-xnet/connid"
 	"github.com/xpwu/go-xnet/xtcp"
 	"net"

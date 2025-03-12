@@ -2,7 +2,7 @@ package fakehttp
 
 import (
 	"encoding/binary"
-	"github.com/xpwu/go-stream/conn"
+	"github.com/jingat2010/go-stream/conn"
 	"sync"
 	"sync/atomic"
 )
@@ -51,44 +51,43 @@ func (w *waitQ) UnInit() {
 	})
 }
 
-func (w *waitQ) toMap() *sync.Map{
-  return (*sync.Map)(w)
+func (w *waitQ) toMap() *sync.Map {
+	return (*sync.Map)(w)
 }
 
-type waitQKey struct {}
+type waitQKey struct{}
 
-func (p *PushID) WaitAck() <-chan struct{}{
-  w := &waitQ{}
-  n,_ := p.c.LoadOrStore(waitQKey{}, w)
-  // 防止死锁, 1个buffer
-  ret := make(chan struct{}, 1)
-  n.(*waitQ).toMap().Store(p.Value, ret)
-  return ret
+func (p *PushID) WaitAck() <-chan struct{} {
+	w := &waitQ{}
+	n, _ := p.c.LoadOrStore(waitQKey{}, w)
+	// 防止死锁, 1个buffer
+	ret := make(chan struct{}, 1)
+	n.(*waitQ).toMap().Store(p.Value, ret)
+	return ret
 }
 
 func (p *PushID) Ack() {
-  n,ok := p.c.Load(waitQKey{})
-  if !ok {
-    return
-  }
+	n, ok := p.c.Load(waitQKey{})
+	if !ok {
+		return
+	}
 
-  ch,ok := n.(*waitQ).toMap().LoadAndDelete(p.Value)
-  if !ok {
-    return
-  }
+	ch, ok := n.(*waitQ).toMap().LoadAndDelete(p.Value)
+	if !ok {
+		return
+	}
 
-  ch.(chan struct{}) <- struct{}{}
+	ch.(chan struct{}) <- struct{}{}
 }
 
 func (p *PushID) CancelWaitingAck() {
-  n,ok := p.c.Load(waitQKey{})
-  if !ok {
-    return
-  }
+	n, ok := p.c.Load(waitQKey{})
+	if !ok {
+		return
+	}
 
-	ch,ok := n.(*waitQ).toMap().LoadAndDelete(p.Value)
+	ch, ok := n.(*waitQ).toMap().LoadAndDelete(p.Value)
 	if ok {
 		close(ch.(chan struct{}))
 	}
 }
-
