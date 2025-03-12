@@ -1,4 +1,4 @@
-module github.com/xpwu/go-stream
+module github.com/jingat2010/go-stream
 
 go 1.16
 
